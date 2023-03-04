@@ -10,7 +10,35 @@
 </head>
 
 <body>
-    <script src="script.js"></script>
+    <div class="container">
+        <div class="submit-container">
+            <h1>JS Library</h1>
+            <button id="show-modal">Submit Book</button>
+            <div class="modal hidden">
+
+                <div class="field">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" required>
+                </div>
+                <div class="field">
+                    <label for="name">Author</label>
+                    <input type="text" id="author" required>
+                </div>
+                <div class="field">
+                    <label for="name">Pages</label>
+                    <input type="number" id="pages" required>
+                </div>
+                <div class="field">
+                    <label for="name">Read</label>
+                    <input type="checkbox" name="read" id="read">
+                </div>
+                <button id="submit-book">Submit</button>
+
+            </div>
+        </div>
+        <div class="books-container">
+        </div>
+        <script src="script.js"></script>
 </body>
 
 </html>
