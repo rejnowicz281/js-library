@@ -61,16 +61,28 @@ submitBook.addEventListener("click", () => {
     deleteColumn.classList.add("book-column");
 
     let markAsRead = document.createElement("button");
-    markAsRead.textContent = book.read ? "Mark as Unread" : "Mark as Read";
+    markAsRead.classList.add("markAsRead-button");
     markAsRead.dataset.bookIndex = library.length - 1;
+    if (book.read) {
+      markAsRead.textContent = "Mark as Unread";
+      markAsRead.classList.add("unread");
+    } else {
+      markAsRead.textContent = "Mark as Read";
+      markAsRead.classList.add("read");
+    }
+
     markAsRead.addEventListener("click", function () {
       if (book.read) {
+        markAsRead.classList.add("read");
+        markAsRead.classList.remove("unread");
         book.read = false;
         markAsRead.textContent = "Mark as Read";
         document.getElementById(
           `book-${markAsRead.dataset.bookIndex}-progress`
         ).textContent = "Not Yet Read";
       } else {
+        markAsRead.classList.remove("read");
+        markAsRead.classList.add("unread");
         book.read = true;
         markAsRead.textContent = "Mark as Unread";
         document.getElementById(
@@ -82,6 +94,7 @@ submitBook.addEventListener("click", () => {
     let deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete";
     deleteButton.dataset.bookIndex = library.length - 1;
+    deleteButton.classList.add("delete-button");
     deleteButton.addEventListener("click", function () {
       booksContainer.removeChild(
         document.getElementById(`book-${deleteButton.dataset.bookIndex}`)
