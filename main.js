@@ -4,8 +4,11 @@ const showModal = document.getElementById("show-modal");
 const modal = document.querySelector(".modal");
 const submitBook = document.getElementById("submit-book");
 const bookTitle = document.getElementById("title");
+const titleError = document.querySelector(".title-error");
 const bookAuthor = document.getElementById("author");
+const authorError = document.querySelector(".author-error");
 const bookPages = document.getElementById("pages");
+const pagesError = document.querySelector(".pages-error");
 const bookRead = document.getElementById("read");
 
 showModal.addEventListener("click", function () {
@@ -18,6 +21,26 @@ class Book {
         this.author = author;
         this.pages = pages;
         this.read = read;
+    }
+}
+
+function showErrors() {
+    if (bookTitle.validity.valueMissing) {
+        titleError.textContent = "Author is required";
+    } else {
+        titleError.textContent = "";
+    }
+    if (bookPages.validity.valueMissing) {
+        pagesError.textContent = "Number of pages is required";
+    } else if (bookPages.validity.rangeUnderflow) {
+        pagesError.textContent = "More pages please";
+    } else {
+        pagesError.textContent = "";
+    }
+    if (bookAuthor.validity.valueMissing) {
+        authorError.textContent = "Author is required";
+    } else {
+        authorError.textContent = "";
     }
 }
 
@@ -46,6 +69,9 @@ submitBook.addEventListener("click", () => {
         bookAuthor.validity.valid &&
         bookPages.validity.valid
     ) {
+        titleError.textContent = "";
+        authorError.textContent = "";
+        pagesError.textContent = "";
         library.addBook(
             new Book(
                 bookTitle.value,
@@ -55,5 +81,7 @@ submitBook.addEventListener("click", () => {
             )
         );
         renderLibraryBook(library, library.books[library.books.length - 1]);
+    } else {
+        showErrors();
     }
 });
